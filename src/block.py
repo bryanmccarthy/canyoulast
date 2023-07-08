@@ -1,11 +1,8 @@
 import pygame
 from spritesheet import Spritesheet
 
-class Block(pygame.sprite.Sprite):
-  def __init__(self, x, y, file):
-    super().__init__()
-    WIDTH = 16
-    HEIGHT = 16
+class Block():
+  def __init__(self, width, height, file):
     block_sprite = Spritesheet(file) # file must be single block
-    self.image = block_sprite.sprite_at(0, 0, 16, 16)
-    self.rect = self.image.get_rect(midbottom = (x, y))
+    self.image = block_sprite.sprite_at(0, 0, width, height)
+    self.image = pygame.transform.scale(self.image, (64, 64))

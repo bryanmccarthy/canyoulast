@@ -1,6 +1,6 @@
 import pygame
 from hero import Hero
-from ground import Ground
+from world import World 
 
 class Game:
   def __init__(self):
@@ -12,7 +12,7 @@ class Game:
     self.running = True
     self.hero = pygame.sprite.GroupSingle()
     self.hero.add(Hero())
-    self.ground = Ground()
+    self.world = World()
 
   def run(self):
     while self.running:
@@ -29,15 +29,13 @@ class Game:
           self.hero.sprite.y_vel = self.hero.sprite.JUMP_VEL
   
   def check_collisions(self):
-    collided = pygame.sprite.spritecollide(self.hero.sprite, self.ground.blocks, False)
-    if collided: 
-      self.hero.sprite.y_vel = 0
-  
+    pass
+
   def update_screen(self):
     self.screen.fill((0, 0, 0))
+    self.world.render(self.screen)
     self.hero.draw(self.screen)
     self.hero.update()
-    self.ground.blocks.draw(self.screen)
     pygame.display.flip()
     self.clock.tick(60)
 

@@ -12,12 +12,12 @@ class Hero(pygame.sprite.Sprite):
     idle_frame_5 = idle_sprite_sheet.sprite_at(64, 0, 16, 16)
     idle_frame_6 = idle_sprite_sheet.sprite_at(80, 0, 16, 16)
     # scale idle frames
-    idle_frame_1 = pygame.transform.scale_by(idle_frame_1, 4)
-    idle_frame_2 = pygame.transform.scale_by(idle_frame_2, 4)
-    idle_frame_3 = pygame.transform.scale_by(idle_frame_3, 4)
-    idle_frame_4 = pygame.transform.scale_by(idle_frame_4, 4)
-    idle_frame_5 = pygame.transform.scale_by(idle_frame_5, 4)
-    idle_frame_6 = pygame.transform.scale_by(idle_frame_6, 4)
+    idle_frame_1 = pygame.transform.scale(idle_frame_1, (64, 64))
+    idle_frame_2 = pygame.transform.scale(idle_frame_2, (64, 64))
+    idle_frame_3 = pygame.transform.scale(idle_frame_3, (64, 64))
+    idle_frame_4 = pygame.transform.scale(idle_frame_4, (64, 64))
+    idle_frame_5 = pygame.transform.scale(idle_frame_5, (64, 64))
+    idle_frame_6 = pygame.transform.scale(idle_frame_6, (64, 64))
 
     run_sprite_sheet = Spritesheet('assets/heroes/knight/knight_run_spritesheet.png')
     run_frame_1 = run_sprite_sheet.sprite_at(0, 0, 16, 16)
@@ -27,12 +27,12 @@ class Hero(pygame.sprite.Sprite):
     run_frame_5 = run_sprite_sheet.sprite_at(64, 0, 16, 16)
     run_frame_6 = run_sprite_sheet.sprite_at(80, 0, 16, 16)
     # scale idle frames
-    run_frame_1 = pygame.transform.scale_by(run_frame_1, 4)
-    run_frame_2 = pygame.transform.scale_by(run_frame_2, 4)
-    run_frame_3 = pygame.transform.scale_by(run_frame_3, 4)
-    run_frame_4 = pygame.transform.scale_by(run_frame_4, 4)
-    run_frame_5 = pygame.transform.scale_by(run_frame_5, 4)
-    run_frame_6 = pygame.transform.scale_by(run_frame_6, 4)
+    run_frame_1 = pygame.transform.scale(run_frame_1, (64, 64))
+    run_frame_2 = pygame.transform.scale(run_frame_2, (64, 64))
+    run_frame_3 = pygame.transform.scale(run_frame_3, (64, 64))
+    run_frame_4 = pygame.transform.scale(run_frame_4, (64, 64))
+    run_frame_5 = pygame.transform.scale(run_frame_5, (64, 64))
+    run_frame_6 = pygame.transform.scale(run_frame_6, (64, 64))
 
     self.idle_idx = 0
     self.idle = [idle_frame_1, idle_frame_2, idle_frame_3, idle_frame_4, idle_frame_5, idle_frame_6]
