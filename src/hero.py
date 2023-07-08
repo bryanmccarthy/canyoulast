@@ -40,6 +40,9 @@ class Hero(pygame.sprite.Sprite):
     self.run_idx = 0
     self.run = [run_frame_1, run_frame_2, run_frame_3, run_frame_4, run_frame_5, run_frame_6]
 
+    self.GRAVITY = 0.7
+    self.JUMP_VEL = -12.0
+    self.y_vel = 0.1
     self.image = self.idle[self.idle_idx]
     self.rect = self.image.get_rect(midbottom = (200, 200))
   
@@ -50,6 +53,7 @@ class Hero(pygame.sprite.Sprite):
       self.rect.x += 6
 
   def idle_animation(self):
+    # TODO: invert when running left
     self.idle_idx += 0.2
     if self.idle_idx >= len(self.idle):
       self.idle_idx = 0
@@ -64,9 +68,10 @@ class Hero(pygame.sprite.Sprite):
   def update(self):
     keys = pygame.key.get_pressed()
     self.user_input(keys)
-    if not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_s] and not keys[pygame.K_d]:
+    if not keys[pygame.K_a] and not keys[pygame.K_d]:
       self.idle_animation()
     else:
       self.run_animation()
 
-
+    self.rect.y += self.y_vel
+    self.y_vel += self.GRAVITY
