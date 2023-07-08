@@ -1,5 +1,6 @@
 import pygame
 from hero import Hero
+from block import Block
 
 class Game:
   def __init__(self):
@@ -11,6 +12,8 @@ class Game:
     self.running = True
     self.hero = pygame.sprite.GroupSingle()
     self.hero.add(Hero())
+    self.block = pygame.sprite.GroupSingle()
+    self.block.add(Block(200, 400, 'assets/tiles/floor/floor_1.png'))
 
   def run(self):
     while self.running:
@@ -25,6 +28,7 @@ class Game:
   def update_screen(self):
     self.hero.draw(self.screen)
     self.hero.update()
+    self.block.draw(self.screen)
     pygame.display.flip()
     self.clock.tick(60)
 

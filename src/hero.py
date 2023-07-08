@@ -44,12 +44,8 @@ class Hero(pygame.sprite.Sprite):
     self.rect = self.image.get_rect(midbottom = (200, 200))
   
   def user_input(self, keys):
-    if keys[pygame.K_w]:
-      self.rect.y -= 6
     if keys[pygame.K_a]:
       self.rect.x -= 6
-    if keys[pygame.K_s]:
-      self.rect.y += 6
     if keys[pygame.K_d]:
       self.rect.x += 6
 
