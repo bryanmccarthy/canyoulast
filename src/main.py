@@ -1,16 +1,14 @@
 import pygame
 from hero import Hero
-from floor import Floor
 
 class Game:
   def __init__(self):
+    WIDTH = 1200
+    HEIGHT = 800
     pygame.init()
-    self.WIDTH = 1280
-    self.HEIGHT = 800
     self.clock = pygame.time.Clock()
-    self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT), pygame.RESIZABLE)
+    self.screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
     self.running = True
-    self.floor = Floor()
     self.hero = pygame.sprite.GroupSingle()
     self.hero.add(Hero())
 
@@ -25,7 +23,6 @@ class Game:
         pygame.quit()
   
   def update_screen(self):
-    self.floor.render(self.screen)
     self.hero.draw(self.screen)
     self.hero.update()
     pygame.display.flip()
