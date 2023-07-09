@@ -69,7 +69,7 @@ class Hero(pygame.sprite.Sprite):
   def update(self):
     keys = pygame.key.get_pressed()
     self.user_input(keys)
-    if not keys[pygame.K_a] and not keys[pygame.K_d]:
+    if not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
       self.idle_animation()
     else:
       self.run_animation()
