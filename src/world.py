@@ -1,4 +1,5 @@
 import pygame
+import random
 from block import Block
 
 class World:
@@ -14,15 +15,14 @@ class World:
     F_9 = Block(16, 16, 'assets/tiles/floor/floor_9.png')
     F_10 = Block(16, 16, 'assets/tiles/floor/floor_10.png')
 
-    self.block_size = 16
-    self.blocks = [
-      [F_1, F_2, F_2, F_3, F_4, F_4, F_4, F_5, F_5, F_6, F_6, F_6, F_3, F_3],
-      [F_2, F_2, F_3, F_3, F_4, F_5, F_5, F_5, F_6, F_6, F_7, F_7, F_7, F_3],
-      [F_5, F_5, F_5, F_3, F_3, F_8, F_8, F_6, F_6, F_8, F_8, F_3, F_3, F_3]
-    ]
-  
+    self.block_size = 64
+    self.blocks = []
 
+    for _ in range(20):
+      row = [random.choice([F_1, F_2, F_3, F_4, F_5, F_6, F_7, F_8, F_9, F_10]) for _ in range(20)]
+      self.blocks.append(row)
+  
   def render(self, screen):
     for row in range(len(self.blocks)):
       for col in range(len(self.blocks[0])):
-        screen.blit(self.blocks[row][col].image, (col * self.block_size, row * self.block_size + 500))
+        screen.blit(self.blocks[row][col].image, (col * self.block_size, row * self.block_size))

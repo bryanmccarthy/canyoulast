@@ -24,15 +24,11 @@ class Game:
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
-      if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_SPACE:
-          self.hero.sprite.y_vel = self.hero.sprite.JUMP_VEL
   
   def check_collisions(self):
     pass
 
   def update_screen(self):
-    self.screen.fill((0, 0, 0))
     self.world.render(self.screen)
     self.hero.draw(self.screen)
     self.hero.update()
