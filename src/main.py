@@ -4,8 +4,8 @@ from world import World
 
 class Game:
   def __init__(self):
-    WIDTH = 1200
-    HEIGHT = 800
+    WIDTH = 1280
+    HEIGHT = 768
     pygame.init()
     self.clock = pygame.time.Clock()
     self.screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)

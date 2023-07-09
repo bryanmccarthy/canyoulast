@@ -17,8 +17,9 @@ class World:
 
     self.block_size = 64
     self.blocks = []
+    self.world_size = (1280, 1280)
 
-    for _ in range(20):
+    for _ in range(12):
       row = [random.choice([F_1, F_2, F_3, F_4, F_5, F_6, F_7, F_8, F_9, F_10]) for _ in range(20)]
       self.blocks.append(row)
   
