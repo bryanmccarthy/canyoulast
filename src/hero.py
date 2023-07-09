@@ -45,13 +45,13 @@ class Hero(pygame.sprite.Sprite):
   
   def user_input(self, keys):
     if keys[pygame.K_w]:
-      self.rect.y -= 6
+      if self.rect.y > 0: self.rect.y -= 6
     if keys[pygame.K_a]:
-      self.rect.x -= 6
+      if self.rect.x > 0: self.rect.x -= 6
     if keys[pygame.K_s]:
-      self.rect.y += 6
+      if self.rect.y < 700: self.rect.y += 6
     if keys[pygame.K_d]:
-      self.rect.x += 6
+      if self.rect.x < 1220: self.rect.x += 6
 
   def idle_animation(self):
     # TODO: invert when running left

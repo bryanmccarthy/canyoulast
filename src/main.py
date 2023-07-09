@@ -16,7 +16,6 @@ class Game:
 
   def run(self):
     while self.running:
-      self.check_collisions()
       self.check_events() 
       self.update_screen()
 
@@ -24,9 +23,6 @@ class Game:
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
-  
-  def check_collisions(self):
-    pass
 
   def update_screen(self):
     self.world.render(self.screen)
