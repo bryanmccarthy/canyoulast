@@ -29,9 +29,11 @@ class Game:
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
+      if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_SPACE:
+          self.check_collisions()
 
   def update_screen(self):
-    self.check_collisions()
     self.world.render(self.screen)
     self.chest_group.draw(self.screen)
     self.chest_group.update()

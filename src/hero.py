@@ -34,6 +34,8 @@ class Hero(pygame.sprite.Sprite):
     run_frame_5 = pygame.transform.scale(run_frame_5, (64, 64))
     run_frame_6 = pygame.transform.scale(run_frame_6, (64, 64))
 
+    self.direction = 'R'
+
     self.idle_idx = 0
     self.idle = [idle_frame_1, idle_frame_2, idle_frame_3, idle_frame_4, idle_frame_5, idle_frame_6]
 
@@ -47,11 +49,21 @@ class Hero(pygame.sprite.Sprite):
     if keys[pygame.K_w]:
       if self.rect.y > 0: self.rect.y -= 6
     if keys[pygame.K_a]:
+      if self.direction == 'R': self.flip_images()
       if self.rect.x > 0: self.rect.x -= 6
+      self.direction = 'L'
     if keys[pygame.K_s]:
       if self.rect.y < 700: self.rect.y += 6
     if keys[pygame.K_d]:
+      if self.direction == 'L': self.flip_images()
       if self.rect.x < 1220: self.rect.x += 6
+      self.direction = 'R'
+  
+  def flip_images(self):
+    for i in range(len(self.idle)):
+      self.idle[i] = pygame.transform.flip(self.idle[i], True, False)
+    for i in range(len(self.run)):
+      self.run[i] = pygame.transform.flip(self.run[i], True, False)
 
   def idle_animation(self):
     # TODO: invert when running left
