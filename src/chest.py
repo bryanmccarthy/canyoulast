@@ -1,5 +1,7 @@
 import pygame
+import random
 from spritesheet import Spritesheet
+from item import Item
 
 class Chest(pygame.sprite.Sprite):
   def __init__(self, x, y):
@@ -30,8 +32,15 @@ class Chest(pygame.sprite.Sprite):
     self.open = False
     self.closed_idx = 0
     self.closed = [chest_closed_frame_1, chest_closed_frame_2, chest_closed_frame_3, chest_closed_frame_4, chest_closed_frame_5, chest_closed_frame_6, chest_closed_frame_7, chest_closed_frame_8]
+
+    self.x = x
+    self.y = y
+
+    chest_items = ['assets/props_itens/potion_green.png', 'assets/props_itens/potion_red.png', 'assets/props_itens/potion_yellow.png']
+    self.items = pygame.sprite.Group(Item(random.choice(chest_items), self.x, self.y))
+
     self.image = self.closed[self.closed_idx]
-    self.rect = self.image.get_rect(midbottom = (x, y))
+    self.rect = self.image.get_rect(midbottom = (self.x, self.y))
 
   def closed_animation(self):
     self.closed_idx += 0.2
