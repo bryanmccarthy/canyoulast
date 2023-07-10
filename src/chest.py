@@ -23,6 +23,11 @@ class Chest(pygame.sprite.Sprite):
     chest_closed_frame_7 = pygame.transform.scale(chest_closed_frame_7, (32, 32))
     chest_closed_frame_8 = pygame.transform.scale(chest_closed_frame_8, (32, 32))
 
+    chest_open_sprite_sheet = Spritesheet('assets/props_itens/chest_open.png')
+    chest_open = chest_open_sprite_sheet.sprite_at(0, 0, 16, 16)
+    self.chest_open = pygame.transform.scale(chest_open, (32, 32))
+
+    self.open = False
     self.closed_idx = 0
     self.closed = [chest_closed_frame_1, chest_closed_frame_2, chest_closed_frame_3, chest_closed_frame_4, chest_closed_frame_5, chest_closed_frame_6, chest_closed_frame_7, chest_closed_frame_8]
     self.image = self.closed[self.closed_idx]
@@ -36,4 +41,7 @@ class Chest(pygame.sprite.Sprite):
       self.image = self.closed[int(self.closed_idx)]
 
   def update(self):
-    self.closed_animation()
+    if self.open:
+      self.image = self.chest_open
+    else:
+      self.closed_animation()

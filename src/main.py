@@ -19,6 +19,11 @@ class Game:
     while self.running:
       self.check_events() 
       self.update_screen()
+  
+  def check_collisions(self):
+    collided_chests = pygame.sprite.spritecollide(self.hero.sprite, self.chest_group, False)
+    for chest in collided_chests:
+      chest.open = True
 
   def check_events(self):
     for event in pygame.event.get():
@@ -26,6 +31,7 @@ class Game:
         pygame.quit()
 
   def update_screen(self):
+    self.check_collisions()
     self.world.render(self.screen)
     self.chest_group.draw(self.screen)
     self.chest_group.update()
