@@ -61,6 +61,7 @@ class Hero(pygame.sprite.Sprite):
     self.image = self.idle[int(self.idle_idx)]
 
   def run_animation(self):
+    # TODO: invert when running left
     self.run_idx += 0.2
     if self.run_idx >= len(self.run):
       self.run_idx = 0

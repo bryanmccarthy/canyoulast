@@ -1,6 +1,7 @@
 import pygame
 from hero import Hero
-from world import World 
+from world import World
+from chest import Chest
 
 class Game:
   def __init__(self):
@@ -10,9 +11,9 @@ class Game:
     self.clock = pygame.time.Clock()
     self.screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
     self.running = True
-    self.hero = pygame.sprite.GroupSingle()
-    self.hero.add(Hero())
+    self.hero = pygame.sprite.GroupSingle(Hero())
     self.world = World()
+    self.chest_group = pygame.sprite.Group(Chest(100,100), Chest(450,350), Chest(1100, 200), Chest(800, 700))
 
   def run(self):
     while self.running:
@@ -26,6 +27,8 @@ class Game:
 
   def update_screen(self):
     self.world.render(self.screen)
+    self.chest_group.draw(self.screen)
+    self.chest_group.update()
     self.hero.draw(self.screen)
     self.hero.update()
     pygame.display.flip()
