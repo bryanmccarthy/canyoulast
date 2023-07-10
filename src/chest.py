@@ -14,18 +14,18 @@ class Chest(pygame.sprite.Sprite):
     chest_closed_frame_7 = chest_closed_sprite_sheet.sprite_at(96, 0, 16, 16)
     chest_closed_frame_8 = chest_closed_sprite_sheet.sprite_at(112, 0, 16, 16)
 
-    chest_closed_frame_1 = pygame.transform.scale(chest_closed_frame_1, (32, 32))
-    chest_closed_frame_2 = pygame.transform.scale(chest_closed_frame_2, (32, 32))
-    chest_closed_frame_3 = pygame.transform.scale(chest_closed_frame_3, (32, 32))
-    chest_closed_frame_4 = pygame.transform.scale(chest_closed_frame_4, (32, 32))
-    chest_closed_frame_5 = pygame.transform.scale(chest_closed_frame_5, (32, 32))
-    chest_closed_frame_6 = pygame.transform.scale(chest_closed_frame_6, (32, 32))
-    chest_closed_frame_7 = pygame.transform.scale(chest_closed_frame_7, (32, 32))
-    chest_closed_frame_8 = pygame.transform.scale(chest_closed_frame_8, (32, 32))
+    chest_closed_frame_1 = pygame.transform.scale(chest_closed_frame_1, (48, 48))
+    chest_closed_frame_2 = pygame.transform.scale(chest_closed_frame_2, (48, 48))
+    chest_closed_frame_3 = pygame.transform.scale(chest_closed_frame_3, (48, 48))
+    chest_closed_frame_4 = pygame.transform.scale(chest_closed_frame_4, (48, 48))
+    chest_closed_frame_5 = pygame.transform.scale(chest_closed_frame_5, (48, 48))
+    chest_closed_frame_6 = pygame.transform.scale(chest_closed_frame_6, (48, 48))
+    chest_closed_frame_7 = pygame.transform.scale(chest_closed_frame_7, (48, 48))
+    chest_closed_frame_8 = pygame.transform.scale(chest_closed_frame_8, (48, 48))
 
     chest_open_sprite_sheet = Spritesheet('assets/props_itens/chest_open.png')
     chest_open = chest_open_sprite_sheet.sprite_at(0, 0, 16, 16)
-    self.chest_open = pygame.transform.scale(chest_open, (32, 32))
+    self.chest_open = pygame.transform.scale(chest_open, (48, 48))
 
     self.open = False
     self.closed_idx = 0
