@@ -46,7 +46,7 @@ class Hero(pygame.sprite.Sprite):
     self.inventory = Inventory()
 
     self.image = self.idle[self.idle_idx]
-    self.rect = self.image.get_rect(midbottom = (100, 700))
+    self.rect = self.image.get_rect(midbottom = (100, 300))
   
   def user_input(self, keys):
     if keys[pygame.K_w]:

@@ -14,7 +14,7 @@ class Game:
     self.running = True
     self.hero = pygame.sprite.GroupSingle(Hero())
     self.world = World()
-    self.chest_group = pygame.sprite.Group(Chest(100,100), Chest(450,350), Chest(1100, 200), Chest(800, 700))
+    self.chest_group = pygame.sprite.Group(Chest(100,100), Chest(200,100), Chest(300, 100), Chest(400, 100), Chest(500, 100))
 
   def run(self):
     while self.running:
@@ -30,6 +30,7 @@ class Game:
         chest.items.draw(self.screen)
     
   def pick_up_item(self, item, chest):
+    if len(self.hero.sprite.inventory.items) == 8: return
     self.hero.sprite.inventory.items.add(item)
     chest.items.remove(item)
   
