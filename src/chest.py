@@ -37,7 +37,10 @@ class Chest(pygame.sprite.Sprite):
     self.y = y
 
     chest_items = ['assets/props_itens/potion_green.png', 'assets/props_itens/potion_red.png', 'assets/props_itens/potion_yellow.png']
-    self.items = pygame.sprite.Group(Item(random.choice(chest_items), self.x, self.y))
+    self.items = pygame.sprite.Group()
+    for _ in range(random.choice([1, 3])):
+      self.items.add(Item(random.choice(chest_items), self.x, self.y))
+
 
     self.image = self.closed[self.closed_idx]
     self.rect = self.image.get_rect(midbottom = (self.x, self.y))

@@ -1,3 +1,4 @@
+import random
 import pygame
 from hero import Hero
 from world import World
@@ -20,7 +21,7 @@ class Game:
       self.check_events() 
       self.update_screen()
   
-  def check_chest_collisions(self):
+  def open_chest(self):
     collided_chests = pygame.sprite.spritecollide(self.hero.sprite, self.chest_group, False)
     for chest in collided_chests:
       chest.open = True
@@ -29,14 +30,22 @@ class Game:
     for chest in self.chest_group:
       if chest.open == True:
         chest.items.draw(self.screen)
-
+    
+  def pick_up_item(self):
+    for chest in self.chest_group:
+      collided_items = pygame.sprite.spritecollide(self.hero.sprite, chest.items, False)
+      if collided_items:
+        random.choice(collided_items).kill() # TODO: remove closest item
+        
   def check_events(self):
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_SPACE:
-          self.check_chest_collisions()
+          self.open_chest()
+        if event.key == pygame.K_e:
+          self.pick_up_item()
 
   def update_screen(self):
     self.world.render(self.screen)
