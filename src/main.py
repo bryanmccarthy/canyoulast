@@ -21,33 +21,35 @@ class Game:
       self.check_events() 
       self.update_screen()
   
-  def open_chest(self):
-    collided_chests = pygame.sprite.spritecollide(self.hero.sprite, self.chest_group, False)
-    for chest in collided_chests:
-      chest.open = True
+  def open_chest(self, chest):
+    chest.open = True
   
   def check_open_chests(self):
     for chest in self.chest_group:
-      if chest.open == True:
+      if chest.open:
         chest.items.draw(self.screen)
     
-  def pick_up_item(self):
+  def pick_up_item(self, item, chest):
+    if not chest.open: return
+    self.hero.sprite.inventory.items.add(item)
+    chest.items.remove(item)
+  
+  def handle_interactions(self):
     for chest in self.chest_group:
       collided_items = pygame.sprite.spritecollide(self.hero.sprite, chest.items, False)
       if collided_items:
-        item = random.choice(collided_items)
-        self.hero.sprite.inventory.items.add(item)
-        chest.items.remove(item)
+        self.pick_up_item(collided_items[0], chest)
+
+    collided_chests = pygame.sprite.spritecollide(self.hero.sprite, self.chest_group, False) 
+    if collided_chests: self.open_chest(collided_chests[0])
         
   def check_events(self):
     for event in pygame.event.get():
       if event.type == pygame.QUIT:
         pygame.quit()
       if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_SPACE:
-          self.open_chest()
         if event.key == pygame.K_e:
-          self.pick_up_item()
+          self.handle_interactions()
 
   def update_screen(self):
     self.world.render(self.screen)
