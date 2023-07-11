@@ -30,15 +30,15 @@ class Game:
         chest.items.draw(self.screen)
     
   def pick_up_item(self, item, chest):
-    if not chest.open: return
     self.hero.sprite.inventory.items.add(item)
     chest.items.remove(item)
   
   def handle_interactions(self):
     for chest in self.chest_group:
-      collided_items = pygame.sprite.spritecollide(self.hero.sprite, chest.items, False)
-      if collided_items:
-        self.pick_up_item(collided_items[0], chest)
+      if chest.open:
+        collided_items = pygame.sprite.spritecollide(self.hero.sprite, chest.items, False)
+        if collided_items:
+          self.pick_up_item(collided_items[0], chest)
 
     collided_chests = pygame.sprite.spritecollide(self.hero.sprite, self.chest_group, False) 
     if collided_chests: self.open_chest(collided_chests[0])
