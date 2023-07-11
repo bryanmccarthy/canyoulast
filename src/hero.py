@@ -1,5 +1,6 @@
 import pygame
 from spritesheet import Spritesheet
+from inventory import Inventory
 
 class Hero(pygame.sprite.Sprite):
   def __init__(self):
@@ -42,7 +43,7 @@ class Hero(pygame.sprite.Sprite):
     self.run_idx = 0
     self.run = [run_frame_1, run_frame_2, run_frame_3, run_frame_4, run_frame_5, run_frame_6]
 
-    self.items = []
+    self.inventory = Inventory()
 
     self.image = self.idle[self.idle_idx]
     self.rect = self.image.get_rect(midbottom = (100, 700))

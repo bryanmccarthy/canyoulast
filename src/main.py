@@ -35,7 +35,9 @@ class Game:
     for chest in self.chest_group:
       collided_items = pygame.sprite.spritecollide(self.hero.sprite, chest.items, False)
       if collided_items:
-        random.choice(collided_items).kill() # TODO: remove closest item
+        item = random.choice(collided_items)
+        self.hero.sprite.inventory.items.add(item)
+        chest.items.remove(item)
         
   def check_events(self):
     for event in pygame.event.get():
@@ -54,6 +56,7 @@ class Game:
     self.check_open_chests()
     self.hero.draw(self.screen)
     self.hero.update()
+    self.hero.sprite.inventory.render(self.screen)
     pygame.display.flip()
     self.clock.tick(60)
 
