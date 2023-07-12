@@ -100,9 +100,9 @@ class Hero(pygame.sprite.Sprite):
     if self.attack_idx >= len(self.attack):
       self.attack_idx = 0
     if self.direction == 'R':
-      screen.blit(self.attack[int(self.attack_idx)], (self.rect.x + 55, self.rect.y + 16))
+      screen.blit(self.attack[int(self.attack_idx)], (self.rect.x + 55 + (2 * self.attack_idx), self.rect.y + 16))
     else:
-      screen.blit(self.attack[int(self.attack_idx)], (self.rect.x - 25, self.rect.y + 16))
+      screen.blit(self.attack[int(self.attack_idx)], (self.rect.x - 25 - (2 * self.attack_idx), self.rect.y + 16))
 
   def update(self, screen):
     keys = pygame.key.get_pressed()
