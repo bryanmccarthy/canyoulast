@@ -32,6 +32,7 @@ class Game:
   def pick_up_item(self, item, chest):
     if len(self.hero.sprite.inventory.items) == 8: return
     self.hero.sprite.inventory.items.add(item)
+    self.hero.sprite.inventory.place_item(item)
     chest.items.remove(item)
   
   def handle_interactions(self):

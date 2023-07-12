@@ -74,6 +74,22 @@ class Hero(pygame.sprite.Sprite):
       if self.direction == 'L': self.flip_images()
       if self.rect.x < 1220: self.rect.x += 6
       self.direction = 'R'
+    if keys[pygame.K_1]:
+      self.inventory.use_slot(1)
+    if keys[pygame.K_2]:
+      self.inventory.use_slot(2)
+    if keys[pygame.K_3]:
+      self.inventory.use_slot(3)
+    if keys[pygame.K_4]:
+      self.inventory.use_slot(4)
+    if keys[pygame.K_5]:
+      self.inventory.use_slot(5)
+    if keys[pygame.K_6]:
+      self.inventory.use_slot(6)
+    if keys[pygame.K_7]:
+      self.inventory.use_slot(7)
+    if keys[pygame.K_8]:
+      self.inventory.use_slot(8)
   
   def flip_images(self):
     for i in range(len(self.idle)):
