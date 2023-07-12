@@ -18,8 +18,8 @@ class Game:
 
   def run(self):
     while self.running:
-      self.check_events() 
       self.update_screen()
+      self.check_events() 
   
   def open_chest(self, chest):
     chest.open = True
@@ -43,6 +43,9 @@ class Game:
 
     collided_chests = pygame.sprite.spritecollide(self.hero.sprite, self.chest_group, False) 
     if collided_chests: self.open_chest(collided_chests[0])
+  
+  def attack(self, bool):
+    self.hero.sprite.attacking = bool
         
   def check_events(self):
     for event in pygame.event.get():
@@ -51,6 +54,10 @@ class Game:
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_e:
           self.handle_interactions()
+      if event.type == pygame.MOUSEBUTTONDOWN:
+        self.attack(True)
+      if event.type == pygame.MOUSEBUTTONUP:
+        self.attack(False)
 
   def update_screen(self):
     self.world.render(self.screen)
@@ -58,7 +65,7 @@ class Game:
     self.chest_group.update()
     self.check_open_chests()
     self.hero.draw(self.screen)
-    self.hero.update()
+    self.hero.update(self.screen)
     self.hero.sprite.inventory.render(self.screen)
     pygame.display.flip()
     self.clock.tick(60)

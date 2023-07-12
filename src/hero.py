@@ -12,7 +12,7 @@ class Hero(pygame.sprite.Sprite):
     idle_frame_4 = idle_sprite_sheet.sprite_at(48, 0, 16, 16)
     idle_frame_5 = idle_sprite_sheet.sprite_at(64, 0, 16, 16)
     idle_frame_6 = idle_sprite_sheet.sprite_at(80, 0, 16, 16)
-    # scale idle frames
+    # Scale idle frames
     idle_frame_1 = pygame.transform.scale(idle_frame_1, (64, 64))
     idle_frame_2 = pygame.transform.scale(idle_frame_2, (64, 64))
     idle_frame_3 = pygame.transform.scale(idle_frame_3, (64, 64))
@@ -27,13 +27,26 @@ class Hero(pygame.sprite.Sprite):
     run_frame_4 = run_sprite_sheet.sprite_at(48, 0, 16, 16)
     run_frame_5 = run_sprite_sheet.sprite_at(64, 0, 16, 16)
     run_frame_6 = run_sprite_sheet.sprite_at(80, 0, 16, 16)
-    # scale idle frames
+    # Scale idle frames
     run_frame_1 = pygame.transform.scale(run_frame_1, (64, 64))
     run_frame_2 = pygame.transform.scale(run_frame_2, (64, 64))
     run_frame_3 = pygame.transform.scale(run_frame_3, (64, 64))
     run_frame_4 = pygame.transform.scale(run_frame_4, (64, 64))
     run_frame_5 = pygame.transform.scale(run_frame_5, (64, 64))
     run_frame_6 = pygame.transform.scale(run_frame_6, (64, 64))
+
+    attack_sprite_sheet = Spritesheet('assets/effects/slash_effect_anim_spritesheet.png')
+    attack_frame_1 = attack_sprite_sheet.sprite_at(0, 0, 16, 16)
+    attack_frame_2 = attack_sprite_sheet.sprite_at(16, 0, 16, 16)
+    attack_frame_3 = attack_sprite_sheet.sprite_at(32, 0, 16, 16)
+    # Scale attack frames
+    attack_frame_1 = pygame.transform.scale(attack_frame_1, (32, 32))
+    attack_frame_2 = pygame.transform.scale(attack_frame_2, (32, 32))
+    attack_frame_3 = pygame.transform.scale(attack_frame_3, (32, 32))
+
+    self.attack_idx = 0
+    self.attack = [attack_frame_1, attack_frame_2, attack_frame_3]
+    self.attacking = False
 
     self.direction = 'R'
 
@@ -67,25 +80,36 @@ class Hero(pygame.sprite.Sprite):
       self.idle[i] = pygame.transform.flip(self.idle[i], True, False)
     for i in range(len(self.run)):
       self.run[i] = pygame.transform.flip(self.run[i], True, False)
+    for i in range(len(self.attack)):
+      self.attack[i] = pygame.transform.flip(self.attack[i], True, False)
 
   def idle_animation(self):
-    # TODO: invert when running left
     self.idle_idx += 0.2
     if self.idle_idx >= len(self.idle):
       self.idle_idx = 0
     self.image = self.idle[int(self.idle_idx)]
 
   def run_animation(self):
-    # TODO: invert when running left
     self.run_idx += 0.2
     if self.run_idx >= len(self.run):
       self.run_idx = 0
     self.image = self.run[int(self.run_idx)]
+  
+  def attack_animation(self, screen):
+    self.attack_idx += 0.2
+    if self.attack_idx >= len(self.attack):
+      self.attack_idx = 0
+    if self.direction == 'R':
+      screen.blit(self.attack[int(self.attack_idx)], (self.rect.x + 55, self.rect.y + 16))
+    else:
+      screen.blit(self.attack[int(self.attack_idx)], (self.rect.x - 25, self.rect.y + 16))
 
-  def update(self):
+  def update(self, screen):
     keys = pygame.key.get_pressed()
     self.user_input(keys)
     if not keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
       self.idle_animation()
+      if self.attacking: self.attack_animation(screen)
     else:
       self.run_animation()
+      if self.attacking: self.attack_animation(screen)
