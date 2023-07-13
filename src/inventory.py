@@ -6,9 +6,6 @@ class Inventory(pygame.sprite.Sprite):
     self.slot_size = 48
     self.items = pygame.sprite.Group()
 
-    image = pygame.image.load('assets/heroes/knight/weapon_sword_1.png').convert_alpha()
-    self.image = pygame.transform.scale(image, (48, 48))
-
     self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
     self.slot_positions = [
@@ -29,21 +26,23 @@ class Inventory(pygame.sprite.Sprite):
   def draw_item(self, item):
     item.rect.topleft = self.slot_positions[len(self.items) - 1]
 
-  def use_slot(self, slot):
+  def use_slot(self, slot, hero):
     for item in self.items:
       if item.rect.topleft == self.slot_positions[slot - 1]:
-        print(item.name) # TODO: if slot contains potion consume it and apply effect
+        # TODO: add stat caps
+        if item.name == 'potion_green': hero.speed += 1
+        elif item.name == 'potion_red': hero.strength += 1
+        elif item.name == 'potion_yellow': hero.healing += 1
+
         self.items.remove(item)
 
   def render(self, screen):
-    pygame.draw.rect(screen, (40, 40, 40), pygame.Rect(345, 700, 48, 48))
-    screen.blit(self.image, (345, 700))
-
     # Slot backgrounds
     for i in range(8):
       pygame.draw.rect(screen, (40, 40, 40), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 48, 48))
       self.draw_text(f'{i + 1}', screen, self.slot_positions[i][0] + 15, self.slot_positions[i][1])
 
+      # Slots containing an item shouldn't render number
       for item in self.items:
         if item.rect.topleft == self.slot_positions[i]:
           pygame.draw.rect(screen, (40, 40, 40), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 48, 48))

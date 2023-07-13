@@ -48,6 +48,9 @@ class Hero(pygame.sprite.Sprite):
     self.attack = [attack_frame_1, attack_frame_2, attack_frame_3]
     self.attacking = False
 
+    self.speed = 5
+    self.strength = 5
+    self.healing = 5
     self.direction = 'R'
 
     self.idle_idx = 0
@@ -63,33 +66,33 @@ class Hero(pygame.sprite.Sprite):
   
   def user_input(self, keys):
     if keys[pygame.K_w]:
-      if self.rect.y > 0: self.rect.y -= 6
+      if self.rect.y > 0: self.rect.y -= self.speed
     if keys[pygame.K_a]:
       if self.direction == 'R': self.flip_images()
-      if self.rect.x > 0: self.rect.x -= 6
+      if self.rect.x > 0: self.rect.x -= self.speed
       self.direction = 'L'
     if keys[pygame.K_s]:
-      if self.rect.y < 700: self.rect.y += 6
+      if self.rect.y < 700: self.rect.y += self.speed
     if keys[pygame.K_d]:
       if self.direction == 'L': self.flip_images()
-      if self.rect.x < 1220: self.rect.x += 6
+      if self.rect.x < 1220: self.rect.x += self.speed
       self.direction = 'R'
     if keys[pygame.K_1]:
-      self.inventory.use_slot(1)
+      self.inventory.use_slot(1, self)
     if keys[pygame.K_2]:
-      self.inventory.use_slot(2)
+      self.inventory.use_slot(2, self)
     if keys[pygame.K_3]:
-      self.inventory.use_slot(3)
+      self.inventory.use_slot(3, self)
     if keys[pygame.K_4]:
-      self.inventory.use_slot(4)
+      self.inventory.use_slot(4, self)
     if keys[pygame.K_5]:
-      self.inventory.use_slot(5)
+      self.inventory.use_slot(5, self)
     if keys[pygame.K_6]:
-      self.inventory.use_slot(6)
+      self.inventory.use_slot(6, self)
     if keys[pygame.K_7]:
-      self.inventory.use_slot(7)
+      self.inventory.use_slot(7, self)
     if keys[pygame.K_8]:
-      self.inventory.use_slot(8)
+      self.inventory.use_slot(8, self)
   
   def flip_images(self):
     for i in range(len(self.idle)):
