@@ -20,12 +20,13 @@ class Inventory(pygame.sprite.Sprite):
       (743, 700)
     ]
   
-  def place_item(self, item):
+  def draw_item(self, item):
     item.rect.topleft = self.slot_positions[len(self.items) - 1]
 
   def use_slot(self, slot):
-    # TODO: Match slot num to pos (rect) and check item sprite collison with that slot rect
-    pass
+    for item in self.items:
+      if item.rect.topleft == self.slot_positions[slot - 1]:
+        self.items.remove(item)
 
   def render(self, screen):
     pygame.draw.rect(screen, (40, 40, 40), pygame.Rect(345, 700, 48, 48))
