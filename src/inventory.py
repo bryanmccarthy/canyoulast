@@ -26,6 +26,7 @@ class Inventory(pygame.sprite.Sprite):
   def use_slot(self, slot):
     for item in self.items:
       if item.rect.topleft == self.slot_positions[slot - 1]:
+        print(item.name) # TODO: if slot contains potion consume it and apply effect
         self.items.remove(item)
 
   def render(self, screen):
