@@ -9,6 +9,7 @@ class Game:
     WIDTH = 1280
     HEIGHT = 768
     pygame.init()
+    pygame.font.init()
     self.clock = pygame.time.Clock()
     self.screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
     self.running = True
