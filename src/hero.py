@@ -51,6 +51,8 @@ class Hero(pygame.sprite.Sprite):
     self.speed = 5
     self.strength = 5
     self.healing = 5
+
+    self.health = 100
     self.direction = 'R'
 
     self.idle_idx = 0
@@ -123,6 +125,9 @@ class Hero(pygame.sprite.Sprite):
     else:
       screen.blit(self.attack[int(self.attack_idx)], (self.rect.x - 25 - (2 * self.attack_idx), self.rect.y + 16))
 
+  def draw_health(self, screen):
+    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(565, 650, 150, 25)) # TODO: draw actual health + text
+
   def update(self, screen):
     keys = pygame.key.get_pressed()
     self.user_input(keys)
@@ -132,3 +137,5 @@ class Hero(pygame.sprite.Sprite):
     else:
       self.run_animation()
       if self.attacking: self.attack_animation(screen)
+      
+    self.draw_health(screen)
