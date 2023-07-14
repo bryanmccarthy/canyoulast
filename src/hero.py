@@ -130,8 +130,8 @@ class Hero(pygame.sprite.Sprite):
   def draw_health(self, screen):
     pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(590, 660, 100, 25))
     pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(590, 660, self.health, 25))
-    health = pygame.transform.scale_by(self.font.render(f'{self.health}', False, (0, 0, 0)), 0.6)
-    screen.blit(health, (623, 658))
+    health = pygame.transform.scale_by(self.font.render(f'{self.health}', False, (0, 0, 0)), 0.7)
+    screen.blit(health, (623, 656))
   
   def draw_stats(self, screen):
     pass # TODO: draw stats
