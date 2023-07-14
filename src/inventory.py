@@ -9,14 +9,14 @@ class Inventory(pygame.sprite.Sprite):
     self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
     self.slot_positions = [
-      (400, 700),
-      (449, 700),
-      (498, 700),
-      (547, 700),
-      (596, 700),
-      (645, 700),
-      (694, 700),
-      (743, 700)
+      (448, 700),
+      (496, 700),
+      (544, 700),
+      (592, 700),
+      (640, 700),
+      (688, 700),
+      (736, 700),
+      (784, 700)
     ]
   
   def draw_text(self, text, screen, x, y):
