@@ -5,6 +5,8 @@ from inventory import Inventory
 class Hero(pygame.sprite.Sprite):
   def __init__(self):
     super().__init__()
+    self.font = pygame.font.SysFont('Comic Sans MS', 30)
+
     idle_sprite_sheet = Spritesheet('assets/heroes/knight/knight_idle_spritesheet.png')
     idle_frame_1 = idle_sprite_sheet.sprite_at(0, 0, 16, 16)
     idle_frame_2 = idle_sprite_sheet.sprite_at(16, 0, 16, 16)
@@ -126,7 +128,13 @@ class Hero(pygame.sprite.Sprite):
       screen.blit(self.attack[int(self.attack_idx)], (self.rect.x - 25 - (2 * self.attack_idx), self.rect.y + 16))
 
   def draw_health(self, screen):
-    pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(565, 650, 150, 25)) # TODO: draw actual health + text
+    pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(590, 660, 100, 25))
+    pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(590, 660, self.health, 25))
+    health = pygame.transform.scale_by(self.font.render(f'{self.health}', False, (0, 0, 0)), 0.6)
+    screen.blit(health, (623, 658))
+  
+  def draw_stats(self, screen):
+    pass # TODO: draw stats
 
   def update(self, screen):
     keys = pygame.key.get_pressed()
