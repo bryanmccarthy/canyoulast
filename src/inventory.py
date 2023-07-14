@@ -29,12 +29,15 @@ class Inventory(pygame.sprite.Sprite):
   def use_slot(self, slot, hero):
     for item in self.items:
       if item.rect.topleft == self.slot_positions[slot - 1]:
-        # TODO: add stat caps
-        if item.name == 'potion_green': hero.speed += 1
-        elif item.name == 'potion_red': hero.strength += 1
-        elif item.name == 'potion_yellow': hero.healing += 1
-
-        self.items.remove(item)
+        if item.name == 'potion_green' and hero.speed < 8: 
+          hero.speed += 1
+          self.items.remove(item)
+        elif item.name == 'potion_red' and hero.strength < 10: 
+          hero.strength += 1
+          self.items.remove(item)
+        elif item.name == 'potion_yellow' and hero.healing < 10: 
+          hero.healing += 1
+          self.items.remove(item)
 
   def render(self, screen):
     # Slot backgrounds
