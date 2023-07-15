@@ -10,10 +10,11 @@ class Game:
     HEIGHT = 768
     pygame.init()
     pygame.font.init()
+    self.font = pygame.font.SysFont('Comic Sans MS', 30)
     self.clock = pygame.time.Clock()
     self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
     self.running = True
-    self.in_menu = True
+    self.in_menu = True 
     self.hero = pygame.sprite.GroupSingle(Hero())
     self.world = World()
     self.chest_group = pygame.sprite.Group(Chest(100,100), Chest(200,100), Chest(300, 100), Chest(400, 100), Chest(500, 100))
@@ -51,7 +52,11 @@ class Game:
     self.hero.sprite.attacking = bool
   
   def draw_menu(self):
-    pass
+    title = self.font.render("can you last", False, (200, 255, 255))
+    self.screen.blit(title, (560, 100))
+
+    start = self.font.render("SPACE to start", False, (200, 255, 255))
+    self.screen.blit(start, (535, 350))
         
   def check_events(self):
     for event in pygame.event.get():
@@ -60,6 +65,8 @@ class Game:
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_e:
           self.handle_interactions()
+        if event.key == pygame.K_SPACE:
+          self.in_menu = False
       if event.type == pygame.MOUSEBUTTONDOWN:
         self.attack(True)
       if event.type == pygame.MOUSEBUTTONUP:
@@ -68,6 +75,7 @@ class Game:
   def update_screen(self):
     if self.in_menu:
       self.screen.fill((0, 0, 0))
+      self.draw_menu()
     else:
       self.world.render(self.screen)
       self.chest_group.draw(self.screen)
