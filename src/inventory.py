@@ -24,7 +24,14 @@ class Inventory(pygame.sprite.Sprite):
     screen.blit(text, (x, y))
   
   def draw_item(self, item):
-    item.rect.topleft = self.slot_positions[len(self.items) - 1]
+    for slot_pos in self.slot_positions:
+      used = False
+      for item in self.items:
+        if item.rect.topleft == slot_pos:
+          used = True
+      if not used:
+        item.rect.topleft = slot_pos
+        break
 
   def use_slot(self, slot, hero):
     for item in self.items:
