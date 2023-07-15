@@ -37,13 +37,13 @@ class Inventory(pygame.sprite.Sprite):
     for item in self.items:
       if item.rect.topleft == self.slot_positions[slot - 1]:
         if item.name == 'potion_green' and hero.speed < 8: 
-          hero.speed += 1
+          hero.speed += 0.2
           self.items.remove(item)
-        elif item.name == 'potion_red' and hero.strength < 10: 
-          hero.strength += 1
+        elif item.name == 'potion_red' and hero.strength < 8: 
+          hero.strength += 0.2
           self.items.remove(item)
-        elif item.name == 'potion_yellow' and hero.healing < 10: 
-          hero.healing += 1
+        elif item.name == 'potion_yellow' and hero.healing < 8: 
+          hero.healing += 0.2
           self.items.remove(item)
 
   def render(self, screen):

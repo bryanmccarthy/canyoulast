@@ -17,7 +17,7 @@ class Game:
     self.in_menu = True 
     self.hero = pygame.sprite.GroupSingle(Hero())
     self.world = World()
-    self.chest_group = pygame.sprite.Group(Chest(100,100), Chest(200,100), Chest(300, 100), Chest(400, 100), Chest(500, 100))
+    self.chest_group = pygame.sprite.Group(Chest(100,100), Chest(300,100), Chest(500, 100), Chest(700, 100), Chest(900, 100))
 
   def run(self):
     while self.running:

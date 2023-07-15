@@ -39,8 +39,8 @@ class Chest(pygame.sprite.Sprite):
     chest_items = [('potion_green', 'assets/props_itens/potion_green.png'), ('potion_red', 'assets/props_itens/potion_red.png'), ('potion_yellow', 'assets/props_itens/potion_yellow.png')]
     self.items = pygame.sprite.Group()
     # Add a random amount of random items to the chest
-    for _ in range(random.randrange(1, 3)):
-      random_idx = random.randrange(0, 2)
+    for _ in range(random.randrange(2, 4)):
+      random_idx = random.randrange(0, 3)
       self.items.add(Item(chest_items[random_idx][1], chest_items[random_idx][0], self.x, self.y))
 
     self.image = self.closed[self.closed_idx]

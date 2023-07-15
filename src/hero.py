@@ -134,7 +134,16 @@ class Hero(pygame.sprite.Sprite):
     screen.blit(health, (623, 656))
   
   def draw_stats(self, screen):
-    pass # TODO: draw stats
+    display_speed = int(((self.speed % 5) / 0.2) + 5)
+    display_strength = int(((self.strength % 5) / 0.2) + 5)
+    display_healing = int(((self.healing % 5) / 0.2) + 5)
+
+    speed_text = pygame.transform.scale_by(self.font.render(f"spd {display_speed}", False, (200, 255, 255)), 0.8)
+    screen.blit(speed_text, (840, 700))
+    strength_text = pygame.transform.scale_by(self.font.render(f"atk {display_strength}", False, (200, 255, 255)), 0.8)
+    screen.blit(strength_text, (920, 700))
+    healing_text = pygame.transform.scale_by(self.font.render(f"hp+ {display_healing}", False, (200, 255, 255)), 0.8)
+    screen.blit(healing_text, (1000, 700))
 
   def update(self, screen):
     keys = pygame.key.get_pressed()
@@ -147,3 +156,4 @@ class Hero(pygame.sprite.Sprite):
       if self.attacking: self.attack_animation(screen)
       
     self.draw_health(screen)
+    self.draw_stats(screen)
