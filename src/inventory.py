@@ -51,12 +51,13 @@ class Inventory(pygame.sprite.Sprite):
     for i in range(8):
       pygame.draw.rect(screen, (60, 60, 60), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 48, 48))
       self.draw_text(f'{i + 1}', screen, self.slot_positions[i][0] + 15, self.slot_positions[i][1])
-      if i != 0: pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 2, 48))
 
       # Slots containing an item shouldn't render number
       for item in self.items:
         if item.rect.topleft == self.slot_positions[i]:
           pygame.draw.rect(screen, (60, 60, 60), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 48, 48))
-          if item.rect.topleft[0] != 448: pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 2, 48))
+
+      # Line breaks
+      if i != 0: pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 2, 48))
     
     self.items.draw(screen)
