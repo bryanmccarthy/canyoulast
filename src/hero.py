@@ -142,7 +142,7 @@ class Hero(pygame.sprite.Sprite):
     screen.blit(speed_text, (840, 700))
     strength_text = pygame.transform.scale_by(self.font.render(f"atk {display_strength}", False, (200, 255, 255)), 0.8)
     screen.blit(strength_text, (920, 700))
-    healing_text = pygame.transform.scale_by(self.font.render(f"hp+ {display_healing}", False, (200, 255, 255)), 0.8)
+    healing_text = pygame.transform.scale_by(self.font.render(f"vit {display_healing}", False, (200, 255, 255)), 0.8)
     screen.blit(healing_text, (1000, 700))
 
   def update(self, screen):
