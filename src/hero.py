@@ -1,6 +1,7 @@
 import pygame
 from spritesheet import Spritesheet
 from inventory import Inventory
+from world import World
 
 class Hero(pygame.sprite.Sprite):
   def __init__(self):
@@ -70,23 +71,28 @@ class Hero(pygame.sprite.Sprite):
     self.run = [run_frame_1, run_frame_2, run_frame_3, run_frame_4, run_frame_5, run_frame_6]
 
     self.inventory = Inventory()
+    self.world = World()
 
     self.image = self.idle[self.idle_idx]
-    self.rect = self.image.get_rect(midbottom = (100, 300))
+    self.rect = self.image.get_rect(midbottom = (640, 384))
   
   def user_input(self, keys):
     if keys[pygame.K_w]:
-      if self.rect.y > 0: self.rect.y -= self.speed
+      self.world.shift_world('u')
+
     if keys[pygame.K_a]:
       if self.direction == 'R': self.flip_images()
-      if self.rect.x > 0: self.rect.x -= self.speed
       self.direction = 'L'
+      self.world.shift_world('l')
+
     if keys[pygame.K_s]:
-      if self.rect.y < 700: self.rect.y += self.speed
+      self.world.shift_world('d')
+
     if keys[pygame.K_d]:
       if self.direction == 'L': self.flip_images()
-      if self.rect.x < 1220: self.rect.x += self.speed
       self.direction = 'R'
+      self.world.shift_world('r')
+
     if keys[pygame.K_1]:
       self.inventory.use_slot(1, self)
     if keys[pygame.K_2]:
