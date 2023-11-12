@@ -43,5 +43,5 @@ class World:
   def render(self, screen):
     for row in range(self.ROWS):
       for col in range(self.COLS):
-        screen.blit(self.blocks[row + self.j][col + self.i].image, (col * self.block_size, row * self.block_size))
+        screen.blit(self.blocks[self.j + row][self.i + col].image, (col * self.block_size, row * self.block_size))
     
