@@ -29,16 +29,16 @@ class World:
   def shift_world(self, direction):
     if direction == 'u':
       print("shift up")
-      self.j -= 1
+      if self.j > 0: self.j -= 1
     elif direction == 'd':
       print("shift down")
-      self.j += 1
+      if self.j < 100: self.j += 1
     elif direction == 'l':
       print("shift left")
-      self.i -= 1
+      if self.i > 0: self.i -= 1
     elif direction == 'r':
       print("shift right")
-      self.i += 1
+      if self.i < 100: self.i += 1
   
   def render(self, screen):
     for row in range(self.ROWS):
