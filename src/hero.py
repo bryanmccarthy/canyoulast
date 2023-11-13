@@ -51,11 +51,17 @@ class Hero(pygame.sprite.Sprite):
     self.attack = [attack_frame_1, attack_frame_2, attack_frame_3]
     self.attacking = False
 
+    # Stats
     self.speed = 5
     self.strength = 5
     self.healing = 5
-
     self.health = 100
+
+    # Stat caps
+    self.speed_cap = 8
+    self.strength_cap = 8
+    self.healing_cap = 8
+
     self.direction = 'R'
 
     self.idle_idx = 0
