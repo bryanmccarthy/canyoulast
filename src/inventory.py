@@ -36,13 +36,13 @@ class Inventory(pygame.sprite.Sprite):
   def use_slot(self, slot, hero):
     for item in self.items:
       if item.rect.topleft == self.slot_positions[slot - 1]:
-        if item.name == 'potion_green' and hero.speed < hero.max_speed: 
+        if item.name == 'potion_green' and hero.speed < 8: 
           hero.speed += 0.2
           self.items.remove(item)
-        elif item.name == 'potion_red' and hero.strength < hero.max_strength: 
+        elif item.name == 'potion_red' and hero.strength < 8: 
           hero.strength += 0.2
           self.items.remove(item)
-        elif item.name == 'potion_yellow' and hero.healing < hero.max_healing: 
+        elif item.name == 'potion_yellow' and hero.healing < 8: 
           hero.healing += 0.2
           self.items.remove(item)
 
