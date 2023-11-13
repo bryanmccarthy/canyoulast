@@ -83,20 +83,20 @@ class Hero(pygame.sprite.Sprite):
       quit()
 
     if keys[pygame.K_w]:
-      self.world.shift_world('u')
+      if self.rect.y > 0: self.rect.y -= self.speed
 
     if keys[pygame.K_a]:
       if self.direction == 'R': self.flip_images()
       self.direction = 'L'
-      self.world.shift_world('l')
+      if self.rect.x > 0: self.rect.x -= self.speed
 
     if keys[pygame.K_s]:
-      self.world.shift_world('d')
+      if self.rect.y < 704: self.rect.y += self.speed
 
     if keys[pygame.K_d]:
       if self.direction == 'L': self.flip_images()
       self.direction = 'R'
-      self.world.shift_world('r')
+      if self.rect.x < 1216: self.rect.x += self.speed
 
     if keys[pygame.K_1]:
       self.inventory.use_slot(1, self)
