@@ -77,11 +77,6 @@ class Hero(pygame.sprite.Sprite):
     self.rect = self.image.get_rect(midbottom = (640, 384))
   
   def user_input(self, keys):
-    if keys[pygame.K_ESCAPE]:
-      # TODO: Add pause menu
-      pygame.quit()
-      quit()
-
     if keys[pygame.K_w]:
       if self.rect.y > 0: self.rect.y -= self.speed
 
