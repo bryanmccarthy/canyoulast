@@ -16,6 +16,8 @@ class Game:
     self.clock = pygame.time.Clock()
     self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
     self.running = True
+    self.player_shooting = False
+    self.player_shoot_cooldown = 0
     self.in_menu = True
     self.in_pause_menu = False
     self.wave = 1
@@ -97,9 +99,19 @@ class Game:
         if event.key == pygame.K_q and self.in_pause_menu:
           pygame.quit()
       if event.type == pygame.MOUSEBUTTONDOWN:
-        mouse_pos = pygame.mouse.get_pos()
-        bullet = Bullet(self.hero.sprite.rect.x + 32, self.hero.sprite.rect.y + 32, mouse_pos[0], mouse_pos[1], 200)
-        self.bullets.add(bullet)
+        self.player_shooting = True
+      if event.type == pygame.MOUSEBUTTONUP:
+        self.player_shooting = False
+        self.player_shoot_cooldown = 0
+  
+  def player_shoot(self):
+    if self.player_shoot_cooldown > 0:
+      self.player_shoot_cooldown -= 1
+      return
+    self.player_shoot_cooldown = 10
+    mouse_pos = pygame.mouse.get_pos()
+    bullet = Bullet(self.hero.sprite.rect.x + 32, self.hero.sprite.rect.y + 32, mouse_pos[0], mouse_pos[1], 200, 10)
+    self.bullets.add(bullet)
 
   def update_screen(self):
     if self.in_menu:
@@ -117,6 +129,8 @@ class Game:
       self.hero.sprite.inventory.render(self.screen)
       self.enemies.draw(self.screen)
       self.enemies.update(self.hero.sprite.rect.x, self.hero.sprite.rect.y)
+      if self.player_shooting:
+        self.player_shoot()
       self.bullets.draw(self.screen)
       self.bullets.update()
 
