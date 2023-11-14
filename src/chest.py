@@ -43,6 +43,7 @@ class Chest(pygame.sprite.Sprite):
       random_idx = random.randrange(0, 3)
       self.items.add(Item(chest_items[random_idx][1], chest_items[random_idx][0], self.x, self.y))
 
+    self.items.add(Item('assets/heroes/knight/iron_sword.png', 'weapon', self.x, self.y))
     self.image = self.closed[self.closed_idx]
     self.rect = self.image.get_rect(midbottom = (self.x, self.y))
 
