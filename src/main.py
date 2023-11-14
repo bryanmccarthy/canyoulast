@@ -17,6 +17,7 @@ class Game:
     self.running = True
     self.in_menu = True
     self.in_pause_menu = False
+    self.wave = 1
     self.hero = pygame.sprite.GroupSingle(Hero())
     self.enemies = pygame.sprite.Group()
     self.world = World()
@@ -76,6 +77,11 @@ class Game:
 
     start = self.font.render("SPACE to start", False, (200, 255, 255))
     self.screen.blit(start, (535, 350))
+
+  def draw_wave(self):
+    wave = self.font.render(f"WAVE {self.wave}", False, (255, 255, 255))
+    wave = pygame.transform.scale_by(wave, 0.8)
+    self.screen.blit(wave, (2, 2))
         
   def check_events(self):
     for event in pygame.event.get():
@@ -102,6 +108,7 @@ class Game:
       self.draw_pause_menu()
     else:
       self.world.render(self.screen)
+      self.draw_wave()
       self.chest_group.draw(self.screen)
       self.chest_group.update()
       self.check_open_chests()
