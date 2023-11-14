@@ -1,6 +1,7 @@
 import random
 import pygame
 from hero import Hero
+from slime import Slime
 from world import World
 from chest import Chest
 
@@ -17,8 +18,12 @@ class Game:
     self.in_menu = True
     self.in_pause_menu = False
     self.hero = pygame.sprite.GroupSingle(Hero())
+    self.enemies = pygame.sprite.Group()
     self.world = World()
     self.chest_group = pygame.sprite.Group(Chest(100,100), Chest(300,100), Chest(500, 100), Chest(700, 100), Chest(900, 100))
+
+    for _ in range(5):
+      self.enemies.add(Slime())
 
   def run(self):
     while self.running:
@@ -102,6 +107,8 @@ class Game:
       self.hero.draw(self.screen)
       self.hero.update(self.screen)
       self.hero.sprite.inventory.render(self.screen)
+      self.enemies.draw(self.screen)
+      self.enemies.update()
 
     pygame.display.flip()
     self.clock.tick(60)
