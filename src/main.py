@@ -5,6 +5,7 @@ from slime import Slime
 from world import World
 from chest import Chest
 from bullet import Bullet
+from spritesheet import Spritesheet
 
 class Game:
   def __init__(self):
@@ -32,6 +33,17 @@ class Game:
       self.enemies.add(Slime())
     
     self.bullets = pygame.sprite.Group()
+
+    # Hit effect animation
+    hit_sprite_sheet = Spritesheet('assets/effects/hit_effect_anim_spritesheet.png')
+    hit_frame_2 = hit_sprite_sheet.sprite_at(8, 0, 8, 8)
+    hit_frame_3 = hit_sprite_sheet.sprite_at(16, 0, 8, 8)
+
+    hit_frame_2 = pygame.transform.scale(hit_frame_2, (32, 32))
+    hit_frame_3 = pygame.transform.scale(hit_frame_3, (32, 32))
+
+    self.hit_frames = [hit_frame_2, hit_frame_3]
+    self.hit_idx = 0
     
   def run(self):
     while self.running:
@@ -113,12 +125,20 @@ class Game:
     mouse_pos = pygame.mouse.get_pos()
     bullet = Bullet(self.hero.sprite.rect.x + 32, self.hero.sprite.rect.y + 32, mouse_pos[0], mouse_pos[1], 200, 10)
     self.bullets.add(bullet)
+
+  def hit_animation(self, x, y):
+    self.hit_idx += 0.2
+    if self.hit_idx >= len(self.hit_frames):
+      self.hit_idx = 0
+    self.hit_image = self.hit_frames[int(self.hit_idx)]
+    self.screen.blit(self.hit_image, (x, y))
   
   def check_bullet_collision(self):
     for enemy in self.enemies:
       collided_bullets = pygame.sprite.spritecollide(enemy, self.bullets, True)
-      if collided_bullets:
-        enemy.hit(10)
+      for bullet in collided_bullets:
+        self.hit_animation(bullet.rect.x, bullet.rect.y)
+        enemy.hit(self.hero.sprite.strength)
   
   def update_wave(self):
     if not self.enemies:

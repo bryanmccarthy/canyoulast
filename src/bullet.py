@@ -1,4 +1,5 @@
 import pygame
+from spritesheet import Spritesheet
 
 class Bullet(pygame.sprite.Sprite):
   def __init__(self, player_x, player_y, target_x, target_y, range, vel):
@@ -10,11 +11,13 @@ class Bullet(pygame.sprite.Sprite):
     self.target_y = target_y
     self.range = range
     self.vel = vel
-    
-    self.image = pygame.Surface([8, 8]).convert_alpha()
-    self.image.fill((255, 0, 0))
-    self.rect = self.image.get_rect(midbottom = (self.player_x, self.player_y))
 
+    hit_sprite_sheet = Spritesheet('assets/effects/hit_effect_anim_spritesheet.png')
+    bullet_sprite = hit_sprite_sheet.sprite_at(0, 0, 8, 8)
+    self.bullet = pygame.transform.scale(bullet_sprite, (32, 32))
+
+    self.image = self.bullet
+    self.rect = self.image.get_rect(midbottom = (self.player_x, self.player_y))
 
   def draw(self, screen):
     screen.blit(self.image, self.rect)
