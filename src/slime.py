@@ -6,6 +6,7 @@ class Slime(pygame.sprite.Sprite):
   def __init__(self):
     super().__init__()
     # self.font = pygame.font.SysFont('Comic Sans MS', 30)
+    self.health = 30
 
     idle_sprite_sheet = Spritesheet('assets/enemies/slime/slime_idle_spritesheet.png')
     idle_frame_1 = idle_sprite_sheet.sprite_at(0, 0, 16, 16)
@@ -45,8 +46,9 @@ class Slime(pygame.sprite.Sprite):
 
     self.image = self.idle[self.idle_idx]
 
-    random_x_pos = random.choice([random.randint(-100, 0), random.randint(1280, 1380)])
-    random_y_pos = random.choice([random.randint(-100, 0), random.randint(768, 868)])
+    # random_x_pos = random.choice([random.randint(-300, 0), random.randint(1280, 1580)])
+    random_x_pos = random.randint(0, 1280)
+    random_y_pos = random.choice([random.randint(-300, 0), random.randint(768, 1068)])
     self.rect = self.image.get_rect(midbottom = (random_x_pos, random_y_pos))
   
   def idle_animation(self):
@@ -71,6 +73,11 @@ class Slime(pygame.sprite.Sprite):
       self.rect.y += 1
     elif self.rect.y > hero_y + 16:
       self.rect.y -= 1
+  
+  def hit(self, damage):
+    self.health -= damage
+    if self.health <= 0:
+      self.kill()
   
   def update(self, hero_x, hero_y):
     self.run_animation()

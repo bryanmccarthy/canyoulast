@@ -113,6 +113,18 @@ class Game:
     mouse_pos = pygame.mouse.get_pos()
     bullet = Bullet(self.hero.sprite.rect.x + 32, self.hero.sprite.rect.y + 32, mouse_pos[0], mouse_pos[1], 200, 10)
     self.bullets.add(bullet)
+  
+  def check_bullet_collision(self):
+    for enemy in self.enemies:
+      collided_bullets = pygame.sprite.spritecollide(enemy, self.bullets, True)
+      if collided_bullets:
+        enemy.hit(10)
+  
+  def update_wave(self):
+    if not self.enemies:
+      self.wave += 1
+      for _ in range(5 * self.wave):
+        self.enemies.add(Slime())
 
   def update_screen(self):
     if self.in_menu:
@@ -130,10 +142,11 @@ class Game:
       self.hero.sprite.inventory.render(self.screen)
       self.enemies.draw(self.screen)
       self.enemies.update(self.hero.sprite.rect.x, self.hero.sprite.rect.y)
-      if self.player_shooting:
-        self.player_shoot()
+      if self.player_shooting: self.player_shoot()
       self.bullets.draw(self.screen)
       self.bullets.update()
+      self.check_bullet_collision()
+      self.update_wave()
 
     pygame.display.flip()
     self.clock.tick(60)
