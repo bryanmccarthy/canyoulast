@@ -1,6 +1,6 @@
 import pygame
 from spritesheet import Spritesheet
-from random import randint
+import random
 
 class Slime(pygame.sprite.Sprite):
   def __init__(self):
@@ -45,8 +45,8 @@ class Slime(pygame.sprite.Sprite):
 
     self.image = self.idle[self.idle_idx]
 
-    random_x_pos = randint(100, 500)
-    random_y_pos = randint(100, 500)
+    random_x_pos = random.choice([random.randint(-100, 0), random.randint(1280, 1380)])
+    random_y_pos = random.choice([random.randint(-100, 0), random.randint(768, 868)])
     self.rect = self.image.get_rect(midbottom = (random_x_pos, random_y_pos))
   
   def idle_animation(self):
