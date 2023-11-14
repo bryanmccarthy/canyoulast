@@ -56,11 +56,11 @@ class Inventory(pygame.sprite.Sprite):
         elif item.name == 'weapon':
           # Swap weapon
           curr_weapon = self.weapon.sprite
-          curr_weapon.rect.topleft = self.slot_positions[slot - 1]
+          if curr_weapon: curr_weapon.rect.topleft = self.slot_positions[slot - 1]
           self.weapon.empty()
           self.weapon.add(item)
           self.items.remove(item)
-          self.items.add(curr_weapon)
+          if curr_weapon: self.items.add(curr_weapon)
           self.weapon.sprite.rect.topleft = self.weapon_slot_position
 
   def render(self, screen):
@@ -79,7 +79,7 @@ class Inventory(pygame.sprite.Sprite):
         if item.rect.topleft == self.slot_positions[i]:
           pygame.draw.rect(screen, (60, 60, 60), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 48, 48))
 
-      # Line breaks
-      if i != 0: pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 2, 48))
+      # Slot borders
+      pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(self.slot_positions[i][0], self.slot_positions[i][1], 48, 48), 2)
     
     self.items.draw(screen)
