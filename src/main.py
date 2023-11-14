@@ -10,6 +10,7 @@ class Game:
   def __init__(self):
     WIDTH = 1280
     HEIGHT = 768
+    self.PLAYER_SHOOT_COOLDOWN = 8
     pygame.init()
     pygame.font.init()
     self.font = pygame.font.SysFont('Comic Sans MS', 30)
@@ -108,7 +109,7 @@ class Game:
     if self.player_shoot_cooldown > 0:
       self.player_shoot_cooldown -= 1
       return
-    self.player_shoot_cooldown = 10
+    self.player_shoot_cooldown = self.PLAYER_SHOOT_COOLDOWN
     mouse_pos = pygame.mouse.get_pos()
     bullet = Bullet(self.hero.sprite.rect.x + 32, self.hero.sprite.rect.y + 32, mouse_pos[0], mouse_pos[1], 200, 10)
     self.bullets.add(bullet)
