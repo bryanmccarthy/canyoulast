@@ -4,6 +4,7 @@ from hero import Hero
 from slime import Slime
 from world import World
 from chest import Chest
+from bullet import Bullet
 
 class Game:
   def __init__(self):
@@ -26,6 +27,8 @@ class Game:
 
     for _ in range(5):
       self.enemies.add(Slime())
+    
+    self.bullets = pygame.sprite.Group()
     
   def run(self):
     while self.running:
@@ -67,9 +70,6 @@ class Game:
     collided_chests = pygame.sprite.spritecollide(self.hero.sprite, self.chest_group, False) 
     if collided_chests: self.open_chest(collided_chests[0])
   
-  def attack(self, bool):
-    self.hero.sprite.attacking = bool
-  
   def draw_menu(self):
     self.screen.fill((0, 0, 0))
     title = self.font.render("can you last", False, (200, 255, 255))
@@ -97,9 +97,9 @@ class Game:
         if event.key == pygame.K_q and self.in_pause_menu:
           pygame.quit()
       if event.type == pygame.MOUSEBUTTONDOWN:
-        self.attack(True)
-      if event.type == pygame.MOUSEBUTTONUP:
-        self.attack(False)
+        mouse_pos = pygame.mouse.get_pos()
+        bullet = Bullet(self.hero.sprite.rect.x + 32, self.hero.sprite.rect.y + 32, mouse_pos[0], mouse_pos[1], 200)
+        self.bullets.add(bullet)
 
   def update_screen(self):
     if self.in_menu:
@@ -117,6 +117,8 @@ class Game:
       self.hero.sprite.inventory.render(self.screen)
       self.enemies.draw(self.screen)
       self.enemies.update(self.hero.sprite.rect.x, self.hero.sprite.rect.y)
+      self.bullets.draw(self.screen)
+      self.bullets.update()
 
     pygame.display.flip()
     self.clock.tick(60)
