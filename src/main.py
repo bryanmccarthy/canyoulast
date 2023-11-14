@@ -20,11 +20,12 @@ class Game:
     self.hero = pygame.sprite.GroupSingle(Hero())
     self.enemies = pygame.sprite.Group()
     self.world = World()
-    self.chest_group = pygame.sprite.Group(Chest(100,100), Chest(300,100), Chest(500, 100), Chest(700, 100), Chest(900, 100))
+    self.chest_group = pygame.sprite.Group()
+    self.chest_group.add(Chest(640, 200))
 
     for _ in range(5):
       self.enemies.add(Slime())
-
+    
   def run(self):
     while self.running:
       self.update_screen()
@@ -108,7 +109,7 @@ class Game:
       self.hero.update(self.screen)
       self.hero.sprite.inventory.render(self.screen)
       self.enemies.draw(self.screen)
-      self.enemies.update()
+      self.enemies.update(self.hero.sprite.rect.x, self.hero.sprite.rect.y)
 
     pygame.display.flip()
     self.clock.tick(60)
