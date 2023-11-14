@@ -87,10 +87,10 @@ class Game:
   
   def draw_menu(self):
     self.screen.fill((0, 0, 0))
-    title = self.font.render("can you last", False, (200, 255, 255))
+    title = self.font.render("can you last", False, (255, 255, 255))
     self.screen.blit(title, (560, 100))
 
-    start = self.font.render("SPACE to start", False, (200, 255, 255))
+    start = self.font.render("SPACE to start", False, (255, 255, 255))
     self.screen.blit(start, (535, 350))
 
   def draw_wave(self):
