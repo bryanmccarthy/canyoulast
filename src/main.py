@@ -161,7 +161,7 @@ class Game:
       self.hero.update(self.screen)
       self.hero.sprite.inventory.render(self.screen)
       self.enemies.draw(self.screen)
-      self.enemies.update(self.hero.sprite.rect.x, self.hero.sprite.rect.y)
+      self.enemies.update(self.hero.sprite.rect.x, self.hero.sprite.rect.y, self.screen)
       if self.player_shooting: self.player_shoot()
       self.bullets.draw(self.screen)
       self.bullets.update()

@@ -46,7 +46,6 @@ class Slime(pygame.sprite.Sprite):
 
     self.image = self.idle[self.idle_idx]
 
-    # random_x_pos = random.choice([random.randint(-300, 0), random.randint(1280, 1580)])
     random_x_pos = random.randint(0, 1280)
     random_y_pos = random.choice([random.randint(-300, 0), random.randint(768, 1068)])
     self.rect = self.image.get_rect(midbottom = (random_x_pos, random_y_pos))
@@ -79,6 +78,19 @@ class Slime(pygame.sprite.Sprite):
     if self.health <= 0:
       self.kill()
   
-  def update(self, hero_x, hero_y):
+  def draw_health(self, screen):
+    # draw a health bar above the slime
+    health_bar_width = 32
+    health_bar_height = 5
+    health_bar_x = self.rect.x
+    health_bar_y = self.rect.y - 1
+    health_bar_fill = health_bar_width * (self.health / 30)
+    health_bar_outline = pygame.Rect(health_bar_x, health_bar_y, health_bar_width, health_bar_height)
+    health_bar_fill = pygame.Rect(health_bar_x, health_bar_y, health_bar_fill, health_bar_height)
+    pygame.draw.rect(screen, (255, 0, 0), health_bar_outline)
+    pygame.draw.rect(screen, (0, 255, 0), health_bar_fill)
+  
+  def update(self, hero_x, hero_y, screen):
     self.run_animation()
+    self.draw_health(screen)
     self.move_toward_hero(hero_x, hero_y)
