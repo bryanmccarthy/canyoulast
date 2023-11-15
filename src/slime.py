@@ -5,7 +5,7 @@ import random
 class Slime(pygame.sprite.Sprite):
   def __init__(self):
     super().__init__()
-    # self.font = pygame.font.SysFont('Comic Sans MS', 30)
+    self.font = pygame.font.SysFont('Comic Sans MS', 30)
     self.health = 30
 
     run_sprite_sheet = Spritesheet('assets/enemies/slime/slime_run_spritesheet.png')

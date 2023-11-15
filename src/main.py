@@ -181,7 +181,7 @@ class Game:
       self.world.render(self.screen)
       self.draw_wave()
       self.chest_group.draw(self.screen)
-      self.chest_group.update()
+      self.chest_group.update(self.screen)
       self.check_open_chests()
       self.hero.draw(self.screen)
       self.hero.update(self.screen)

@@ -6,6 +6,8 @@ from item import Item
 class Chest(pygame.sprite.Sprite):
   def __init__(self, x, y):
     super().__init__()
+    self.font = pygame.font.SysFont('Comic Sans MS', 20)
+
     chest_closed_sprite_sheet = Spritesheet('assets/props_itens/chest_spritesheet.png')
     chest_closed_frame_1 = chest_closed_sprite_sheet.sprite_at(0, 0, 16, 16)
     chest_closed_frame_2 = chest_closed_sprite_sheet.sprite_at(16, 0, 16, 16)
@@ -72,8 +74,13 @@ class Chest(pygame.sprite.Sprite):
         self.closed_idx = -8 # Hack
       self.image = self.closed[int(self.closed_idx)]
 
-  def update(self):
+  def draw_open_keybind(self, screen):
+    keybind = self.font.render('<e>', False, (255, 255, 255))
+    screen.blit(keybind, (self.rect.x + 12, self.rect.y - 30))
+
+  def update(self, screen):
     if self.open:
       self.image = self.chest_open
     else:
       self.closed_animation()
+      self.draw_open_keybind(screen)
