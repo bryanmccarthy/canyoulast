@@ -2,6 +2,7 @@ import random
 import pygame
 from hero import Hero
 from slime import Slime
+from goblin import Goblin
 from world import World
 from chest import Chest
 from bullet import Bullet
@@ -23,7 +24,7 @@ class Game:
     self.in_menu = True
     self.in_pause_menu = False
     self.wave = 1
-    self.display_new_wave_text = False
+    self.display_new_wave_text = True
     self.hero = pygame.sprite.GroupSingle(Hero())
     self.enemies = pygame.sprite.Group()
     self.world = World()
@@ -152,9 +153,9 @@ class Game:
     self.display_new_wave_text = False
     for _ in range(5 * self.wave):
       self.enemies.add(Slime())
+      if self.wave >= 3: self.enemies.add(Goblin())
   
   def draw_new_wave_text(self):
-    # text that says SPACE to start
     new_wave_text = self.font.render(f"SPACE to start wave {self.wave}", False, (255, 255, 255))
     self.screen.blit(new_wave_text, (450, 350))
 
