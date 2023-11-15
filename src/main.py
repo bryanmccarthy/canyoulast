@@ -24,12 +24,11 @@ class Game:
     self.in_menu = True
     self.in_pause_menu = False
     self.wave = 1
-    self.display_new_wave_text = True
+    self.display_new_wave_text = False
     self.hero = pygame.sprite.GroupSingle(Hero())
     self.enemies = pygame.sprite.Group()
     self.world = World()
     self.chest_group = pygame.sprite.Group()
-    self.chest_group.add(Chest(640, 200))
 
     for _ in range(5):
       self.enemies.add(Slime())
@@ -142,15 +141,17 @@ class Game:
       collided_bullets = pygame.sprite.spritecollide(enemy, self.bullets, True)
       for bullet in collided_bullets:
         self.hit_animation(bullet.rect.x, bullet.rect.y)
-        enemy.hit(self.hero.sprite.strength)
+        enemy.hit(self.hero.sprite.strength + 20)
   
   def update_wave(self):
     if not self.enemies and not self.display_new_wave_text:
       self.wave += 1
       self.display_new_wave_text = True
+      self.spawn_chest()
   
   def start_new_wave(self):
     self.display_new_wave_text = False
+    self.chest_group.empty()
     for _ in range(5 * self.wave):
       self.enemies.add(Slime())
       if self.wave >= 3: self.enemies.add(Goblin())
@@ -158,6 +159,18 @@ class Game:
   def draw_new_wave_text(self):
     new_wave_text = self.font.render(f"SPACE to start wave {self.wave}", False, (255, 255, 255))
     self.screen.blit(new_wave_text, (450, 350))
+
+  def spawn_chest(self):
+    if self.wave < 3:
+      self.chest_group.add(Chest(640, 300))
+    elif self.wave >= 3 and self.wave < 5:
+      self.chest_group.add(Chest(420, 300))
+      self.chest_group.add(Chest(860, 300))
+    elif self.wave >= 5:
+      self.chest_group.add(Chest(320, 300))
+      self.chest_group.add(Chest(640, 300))
+      self.chest_group.add(Chest(960, 300))
+
 
   def update_screen(self):
     if self.in_menu:
