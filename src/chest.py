@@ -36,14 +36,32 @@ class Chest(pygame.sprite.Sprite):
     self.x = x
     self.y = y
 
-    chest_items = [('potion_green', 'assets/props_itens/potion_green.png'), ('potion_red', 'assets/props_itens/potion_red.png'), ('potion_yellow', 'assets/props_itens/potion_yellow.png')]
-    self.items = pygame.sprite.Group()
-    # Add a random amount of random items to the chest
-    for _ in range(random.randrange(2, 4)):
-      random_idx = random.randrange(0, 3)
-      self.items.add(Item(chest_items[random_idx][1], chest_items[random_idx][0], self.x, self.y))
+    potion_green = pygame.image.load('assets/props_itens/potion_green.png')
+    potion_red = pygame.image.load('assets/props_itens/potion_red.png')
+    potion_yellow = pygame.image.load('assets/props_itens/potion_yellow.png')
 
-    self.items.add(Item('assets/heroes/knight/iron_sword.png', 'weapon', self.x, self.y))
+    potion_green = pygame.transform.scale(potion_green, (32, 32))
+    potion_red = pygame.transform.scale(potion_red, (32, 32))
+    potion_yellow = pygame.transform.scale(potion_yellow, (32, 32))
+
+    swords_sprite_sheet = Spritesheet('assets/swords_spritesheet.png')
+    fire_sword = swords_sprite_sheet.sprite_at(0, 0, 32, 32)
+    ice_sword = swords_sprite_sheet.sprite_at(32, 0, 32, 32)
+    earth_sword = swords_sprite_sheet.sprite_at(64, 0, 32, 32)
+
+    potions = [('potion_green', potion_green), ('potion_red', potion_red), ('potion_yellow', potion_yellow)]
+    swords = [('weapon', fire_sword), ('weapon', ice_sword), ('weapon', earth_sword)]
+    self.items = pygame.sprite.Group()
+
+    # Add a random amount of random potions to the chest
+    for _ in range(random.randrange(3, 5)):
+      random_idx = random.randrange(0, 3)
+      self.items.add(Item(potions[random_idx][1], potions[random_idx][0], self.x, self.y))
+
+    # Add a random sword to the chest
+    random_idx = random.randrange(0, 3)
+    self.items.add(Item(swords[random_idx][1], swords[random_idx][0], self.x, self.y))
+
     self.image = self.closed[self.closed_idx]
     self.rect = self.image.get_rect(midbottom = (self.x, self.y))
 
