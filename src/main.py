@@ -23,6 +23,7 @@ class Game:
     self.in_menu = True
     self.in_pause_menu = False
     self.wave = 1
+    self.display_new_wave_text = False
     self.hero = pygame.sprite.GroupSingle(Hero())
     self.enemies = pygame.sprite.Group()
     self.world = World()
@@ -107,6 +108,8 @@ class Game:
           self.handle_interactions()
         if event.key == pygame.K_SPACE and self.in_menu:
           self.in_menu = False
+        if event.key == pygame.K_SPACE and self.display_new_wave_text:
+          self.start_new_wave()
         if event.key == pygame.K_ESCAPE:
           self.in_pause_menu = not self.in_pause_menu
         if event.key == pygame.K_q and self.in_pause_menu:
@@ -141,10 +144,19 @@ class Game:
         enemy.hit(self.hero.sprite.strength)
   
   def update_wave(self):
-    if not self.enemies:
+    if not self.enemies and not self.display_new_wave_text:
       self.wave += 1
-      for _ in range(5 * self.wave):
-        self.enemies.add(Slime())
+      self.display_new_wave_text = True
+  
+  def start_new_wave(self):
+    self.display_new_wave_text = False
+    for _ in range(5 * self.wave):
+      self.enemies.add(Slime())
+  
+  def draw_new_wave_text(self):
+    # text that says SPACE to start
+    new_wave_text = self.font.render(f"SPACE to start wave {self.wave}", False, (255, 255, 255))
+    self.screen.blit(new_wave_text, (450, 350))
 
   def update_screen(self):
     if self.in_menu:
@@ -167,6 +179,7 @@ class Game:
       self.bullets.update()
       self.check_bullet_collision()
       self.update_wave()
+      if self.display_new_wave_text: self.draw_new_wave_text()
 
     pygame.display.flip()
     self.clock.tick(60)
