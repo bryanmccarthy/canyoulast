@@ -7,6 +7,8 @@ class Slime(pygame.sprite.Sprite):
     super().__init__()
     self.font = pygame.font.SysFont('Comic Sans MS', 30)
     self.health = 30
+    self.damage = 10
+    self.damage_cooldown = 0
 
     run_sprite_sheet = Spritesheet('assets/enemies/slime/slime_run_spritesheet.png')
     run_frame_1 = run_sprite_sheet.sprite_at(0, 0, 16, 16)

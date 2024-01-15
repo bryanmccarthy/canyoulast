@@ -132,6 +132,9 @@ class Hero(pygame.sprite.Sprite):
     screen.blit(strength_text, (920, 700))
     healing_text = pygame.transform.scale_by(self.font.render(f"vit {display_healing}", False, (255, 255, 255)), 0.8)
     screen.blit(healing_text, (1000, 700))
+
+  def hit(self, damage):
+    self.health -= damage
   
   def update(self, screen):
     keys = pygame.key.get_pressed()

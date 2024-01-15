@@ -136,12 +136,22 @@ class Game:
     self.hit_image = self.hit_frames[int(self.hit_idx)]
     self.screen.blit(self.hit_image, (x, y))
   
-  def check_bullet_collision(self):
+  def check_bullet_collisions(self):
     for enemy in self.enemies:
       collided_bullets = pygame.sprite.spritecollide(enemy, self.bullets, True)
       for bullet in collided_bullets:
         self.hit_animation(bullet.rect.x, bullet.rect.y)
         enemy.hit(self.hero.sprite.strength + 20)
+
+  def check_enemy_collisions(self):
+    collided_enemies = pygame.sprite.spritecollide(self.hero.sprite, self.enemies, False)
+    for enemy in collided_enemies:
+      if enemy.damage_cooldown > 0:
+        enemy.damage_cooldown -= 1
+        continue 
+      self.hit_animation(enemy.rect.x, enemy.rect.y)
+      self.hero.sprite.hit(enemy.damage)
+      enemy.damage_cooldown = 60
   
   def update_wave(self):
     if not self.enemies and not self.display_new_wave_text:
@@ -191,7 +201,8 @@ class Game:
       if self.player_shooting: self.player_shoot()
       self.bullets.draw(self.screen)
       self.bullets.update()
-      self.check_bullet_collision()
+      self.check_bullet_collisions()
+      self.check_enemy_collisions()
       self.update_wave()
       if self.display_new_wave_text: self.draw_new_wave_text()
 

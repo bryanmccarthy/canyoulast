@@ -7,6 +7,8 @@ class Goblin(pygame.sprite.Sprite):
     super().__init__()
 
     self.health = 50
+    self.damage = 20
+    self.damage_cooldown = 0
 
     run_sprite_sheet = Spritesheet('assets/enemies/goblin/goblin_run_spritesheet.png')
     run_frame_1 = run_sprite_sheet.sprite_at(0, 0, 16, 16)
