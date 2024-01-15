@@ -9,8 +9,8 @@ class Inventory(pygame.sprite.Sprite):
     self.weapon = pygame.sprite.GroupSingle()
 
     iron_sword_image = pygame.image.load('assets/heroes/knight/iron_sword.png')
-    iron_sword = Item(iron_sword_image, 'weapon', 0, 0)
-    self.weapon.add(iron_sword)
+    self.iron_sword = Item(iron_sword_image, 'weapon', 0, 0)
+    self.weapon.add(self.iron_sword)
     self.weapon.sprite.rect.topleft = (380, 700)
 
     self.font = pygame.font.SysFont('Comic Sans MS', 30)

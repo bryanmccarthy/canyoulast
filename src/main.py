@@ -23,6 +23,7 @@ class Game:
     self.player_shoot_cooldown = 0
     self.in_menu = True
     self.in_pause_menu = False
+    self.in_death_screen = False
     self.wave = 1
     self.display_new_wave_text = False
     self.hero = pygame.sprite.GroupSingle(Hero())
@@ -108,6 +109,8 @@ class Game:
           self.handle_interactions()
         if event.key == pygame.K_SPACE and self.in_menu:
           self.in_menu = False
+        if event.key == pygame.K_SPACE and self.in_death_screen:
+          self.restart_game()
         if event.key == pygame.K_SPACE and self.display_new_wave_text:
           self.start_new_wave()
         if event.key == pygame.K_ESCAPE:
@@ -151,6 +154,8 @@ class Game:
         continue 
       self.hit_animation(enemy.rect.x, enemy.rect.y)
       self.hero.sprite.hit(enemy.damage)
+      if self.hero.sprite.health <= 0:
+        self.in_death_screen = True
       enemy.damage_cooldown = 60
   
   def update_wave(self):
@@ -181,12 +186,36 @@ class Game:
       self.chest_group.add(Chest(640, 300))
       self.chest_group.add(Chest(960, 300))
 
+  def draw_death_screen(self):
+    self.screen.fill((0, 0, 0))
+    title = self.font.render("YOU DIED", False, (255, 255, 255))
+    self.screen.blit(title, (560, 100))
+
+    restart = self.font.render("SPACE to restart", False, (255, 255, 255))
+    self.screen.blit(restart, (535, 350))
+
+  def restart_game(self):
+    self.in_death_screen = False
+    self.wave = 1
+    self.hero.sprite.health = 100
+    self.hero.sprite.speed = 5
+    self.hero.sprite.strength = 5
+    self.hero.sprite.healing = 5
+    self.hero.sprite.inventory.items.empty()
+    self.hero.sprite.inventory.weapon.empty()
+    self.hero.sprite.inventory.weapon.add(self.hero.sprite.inventory.iron_sword)
+    self.hero.sprite.rect = self.hero.sprite.image.get_rect(midbottom = (640, 384))
+    self.enemies.empty()
+    self.bullets.empty()
+    self.start_new_wave()
 
   def update_screen(self):
     if self.in_menu:
       self.draw_menu()
     elif self.in_pause_menu:
       self.draw_pause_menu()
+    elif self.in_death_screen:
+      self.draw_death_screen()
     else:
       self.world.render(self.screen)
       self.draw_wave()
